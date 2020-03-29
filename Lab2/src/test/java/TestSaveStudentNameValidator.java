@@ -15,14 +15,14 @@ import validation.Validator;
 import static org.junit.Assert.*;
 
 //
-public class TestSaveStudent {
+public class TestSaveStudentNameValidator {
 
     private Service service;
 
 
 
     @Test
-    public void testBetween(){
+    public void tc_1(){
 
         Validator<Student> studentValidator = new StudentValidator();
         Validator<Tema> temaValidator = new TemaValidator();
@@ -34,19 +34,15 @@ public class TestSaveStudent {
 
         service = new Service(fileRepository1, fileRepository2, fileRepository3);
 
-        //test between 110 and 938
 
-        int done1=service.saveStudent("10","Raul",231);
+        int done=service.saveStudent("10",null,231);
 
-        assertEquals(1,done1);
+        assertEquals(0,done);
 
-        int done2=service.saveStudent("11","Alex",932);
-
-        assertEquals(1,done2);
     }
 
     @Test
-    public void testAbove(){
+    public void tc_2(){
 
         Validator<Student> studentValidator = new StudentValidator();
         Validator<Tema> temaValidator = new TemaValidator();
@@ -58,12 +54,14 @@ public class TestSaveStudent {
 
         service = new Service(fileRepository1, fileRepository2, fileRepository3);
 
-        int done=service.saveStudent("12","Raul",950);
+
+        int done=service.saveStudent("10","",231);
+
         assertEquals(0,done);
     }
 
     @Test
-    public void testBelow(){
+    public void tc_3(){
 
         Validator<Student> studentValidator = new StudentValidator();
         Validator<Tema> temaValidator = new TemaValidator();
@@ -74,7 +72,7 @@ public class TestSaveStudent {
         NotaXMLRepository fileRepository3 = new NotaXMLRepository(notaValidator, "note.xml");
 
         service = new Service(fileRepository1, fileRepository2, fileRepository3);
-        int done=service.saveStudent("13","Raul",50);
-        assertEquals(0,done);
+        int done=service.saveStudent("13","Raul",931);
+        assertEquals(1,done);
     }
 }
